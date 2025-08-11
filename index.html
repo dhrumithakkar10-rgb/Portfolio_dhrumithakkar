@@ -120,22 +120,34 @@
         cursor: pointer;
       }
       .mobile-menu {
-        display: none;
+        display: none; /* hidden by default */
         flex-direction: column;
         gap: 1rem;
         padding: 1rem;
         background: white;
         box-shadow: var(--shadow-md);
       }
+
       .mobile-menu a {
         padding: 0.5rem;
         border-radius: 0.375rem;
         color: var(--gray-700);
+        text-align: center; /* center align links */
       }
+
       .mobile-menu a:hover {
         background: var(--gray-50);
       }
 
+      .hidden {
+        display: none !important;
+      }
+
+      @media (min-width: 769px) {
+        .mobile-menu {
+          display: none !important; /* never show mobile menu on desktop */
+        }
+      }
       /* Hero */
       .hero-section {
         background: linear-gradient(
@@ -396,16 +408,17 @@
           <a href="#skills">Skills</a>
           <a href="#contact">Contact</a>
         </div>
+        
         <button class="menu-btn" id="mobile-menu-button">
-          <i class="fas fa-bars"></i>
+        <i class="fas fa-bars"></i>
         </button>
-      </div>
-      <div class="mobile-menu hidden" id="mobile-menu">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
-      </div>
+
+        <div class="mobile-menu hidden" id="mobile-menu">
+         <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#contact">Contact</a>
+          </div>
     </nav>
 
     <!-- Hero -->
@@ -452,7 +465,9 @@
               <p><span>From:</span> Ahmedabad, India</p>
               <p><span>Freelance:</span> Available</p>
             </div>
-            <a href="Dhrumi_resume (1).pdf" class="btn btn-primary">Download CV</a>
+            <a href="Dhrumi_resume (1).pdf" class="btn btn-primary"
+              >Download CV</a
+            >
           </div>
         </div>
       </div>
@@ -568,10 +583,19 @@
 
     <script>
       const mobileMenuButton = document.getElementById("mobile-menu-button");
-      const mobileMenu = document.getElementById("mobile-menu");
-      mobileMenuButton.addEventListener("click", () =>
-        mobileMenu.classList.toggle("hidden")
-      );
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  // Toggle mobile menu on hamburger click
+  mobileMenuButton.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
+
+  // Close mobile menu when a link is clicked
+  mobileMenu.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      mobileMenu.classList.add("hidden");
+    });
+  });
       document.querySelector("form").addEventListener("submit", (e) => {
         e.preventDefault();
         alert("Your message has been sent!");
@@ -580,7 +604,3 @@
     </script>
   </body>
 </html>
-
-
-
-
